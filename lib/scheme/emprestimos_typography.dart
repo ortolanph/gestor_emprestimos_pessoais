@@ -7,6 +7,7 @@ enum EmprestimosTypography {
   editLabel,
   editField,
   hideLabel,
+  totalLabel,
 }
 
 extension EmprestimosTypographyExtension on EmprestimosTypography {
@@ -39,6 +40,11 @@ extension EmprestimosTypographyExtension on EmprestimosTypography {
       case EmprestimosTypography.hideLabel:
         return const TextStyle(
           fontSize: 18,
+        );
+      case EmprestimosTypography.totalLabel:
+        return const TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.bold
         );
     }
   }

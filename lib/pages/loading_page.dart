@@ -4,8 +4,6 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:gestor_emprestimos_pessoais/repository/hive_service.dart';
 
 import '../main.dart';
-import '../repository/registro_repository.dart';
-import '../service/context_service.dart';
 
 class LoadingPage extends StatefulWidget {
   const LoadingPage({Key? key}) : super(key: key);
@@ -16,9 +14,6 @@ class LoadingPage extends StatefulWidget {
 
 class _LoadingPageState extends State<LoadingPage> {
   final HiveService _hiveService = autoInjector.get<HiveService>();
-/*  final RegistroRepository _registroRepository =
-      autoInjector.get<RegistroRepository>();
-  final ContextService _contextService = autoInjector.get<ContextService>();*/
 
   @override
   void initState() {

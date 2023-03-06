@@ -1,17 +1,18 @@
+import '../entities/credor.dart';
 
 class ContextService {
-  /*Registro? _registro;*/
+  Credor? _credor;
 
   // pushers
-/*  void pushRegistro(Registro registro) {
-    _registro = registro;
-  }*/
+  void pushCredor(Credor credor) {
+    _credor = credor;
+  }
 
   // poppers
-/*  void popRegistro() {
-    _registro = null;
-  }*/
+  void popRegistro() {
+    _credor = null;
+  }
 
   // getters
-  /*Registro? get registro => _registro;*/
+  Credor? get credor => _credor;
 }

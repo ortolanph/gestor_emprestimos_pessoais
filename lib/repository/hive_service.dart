@@ -1,21 +1,21 @@
 import 'package:hive_flutter/hive_flutter.dart';
 
-class HiveService {
-  // Box<Registro>? _registroBox;
+import '../entities/credor.dart';
 
-  Map<String, Box> boxes = {};
+class HiveService {
+  Box<Credor>? _credorBox;
 
   Future<void> init() async {
     await Hive.initFlutter();
-/*    Hive.registerAdapter(RegistroAdapter());
-    _registroBox = await Hive.openBox<Registro>("registro");*/
+    Hive.registerAdapter(CredorAdapter());
+    _credorBox = await Hive.openBox<Credor>("credores");
   }
 
   // Boxes
-/*  Box<Registro> get registroBox {
-    if (_registroBox == null) {
-      throw Exception("Hive box registro não inicializada.");
+  Box<Credor> get credorBox {
+    if (_credorBox == null) {
+      throw Exception("Hive box Credores não inicializada.");
     }
-    return _registroBox!;
-  }*/
+    return _credorBox!;
+  }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../main.dart';
-import '../repository/registro_repository.dart';
+import '../repository/credor_repository.dart';
 import '../scheme/emprestimos_typography.dart';
 import '../service/context_service.dart';
 
@@ -13,8 +13,8 @@ class ConfigPage extends StatefulWidget {
 }
 
 class _ConfigPageState extends State<ConfigPage> {
-  final RegistroRepository _registroRepository =
-      autoInjector.get<RegistroRepository>();
+  final CredorRepository _credorRepository =
+      autoInjector.get<CredorRepository>();
   final ContextService _contextService = autoInjector.get<ContextService>();
 
   @override
@@ -47,7 +47,8 @@ class _ConfigPageState extends State<ConfigPage> {
                   context: context,
                   builder: (BuildContext context) => AlertDialog(
                     title: const Text('Apagar Dados'),
-                    content: const Text('Desejas mesmo apagar todos os dados da aplicação?'),
+                    content: const Text(
+                        'Desejas mesmo apagar todos os dados da aplicação?'),
                     actions: <Widget>[
                       TextButton(
                         onPressed: () => Navigator.pop(context, 'C'),
@@ -62,8 +63,8 @@ class _ConfigPageState extends State<ConfigPage> {
                 );
 
                 if (result == "S") {
-/*                  _contextService.popRegistro();
-                  _registroRepository.deleteAll();*/
+                  _contextService.popRegistro();
+                  _credorRepository.deleteAll();
                 }
               },
               style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
