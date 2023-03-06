@@ -26,7 +26,7 @@ dependencies:
   logging: ^1.1.1
   url_launcher: ^6.1.10
   uuid: ^3.0.7
-  webview_flutter: ^4.0.6
+  pdf: ^3.9.0
 
 dev_dependencies:
   flutter_test:

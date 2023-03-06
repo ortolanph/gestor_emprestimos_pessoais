@@ -1,9 +1,8 @@
 import 'package:auto_injector/auto_injector.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
+import 'package:gestor_emprestimos_pessoais/pages/config_page.dart';
 import 'package:gestor_emprestimos_pessoais/pages/home_page.dart';
 import 'package:gestor_emprestimos_pessoais/pages/loading_page.dart';
-import 'package:gestor_emprestimos_pessoais/pages/welcome_page.dart';
 import 'package:gestor_emprestimos_pessoais/repository/hive_service.dart';
 import 'package:gestor_emprestimos_pessoais/repository/registro_repository.dart';
 import 'package:gestor_emprestimos_pessoais/service/context_service.dart';
@@ -23,7 +22,7 @@ void main() async {
       routes: {
         "/loading": (context) => const LoadingPage(),
         "/main": (context) => const HomePage(),
-        "/welcome": (context) => const WelcomePage(),
+        "/config": (context) => const ConfigPage(),
       },
     ),
   );

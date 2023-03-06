@@ -16,9 +16,9 @@ class LoadingPage extends StatefulWidget {
 
 class _LoadingPageState extends State<LoadingPage> {
   final HiveService _hiveService = autoInjector.get<HiveService>();
-  final RegistroRepository _registroRepository =
+/*  final RegistroRepository _registroRepository =
       autoInjector.get<RegistroRepository>();
-  final ContextService _contextService = autoInjector.get<ContextService>();
+  final ContextService _contextService = autoInjector.get<ContextService>();*/
 
   @override
   void initState() {
@@ -34,20 +34,14 @@ class _LoadingPageState extends State<LoadingPage> {
         backgroundColor: Colors.blue[900],
         body: const Center(
             child: SpinKitPianoWave(
-              color: Colors.white,
-              itemCount: 7,
-              type: SpinKitPianoWaveType.center,
-            )));
+          color: Colors.white,
+          itemCount: 7,
+          type: SpinKitPianoWaveType.center,
+        )));
   }
 
   void load() async {
     await _hiveService.init();
-
-    if(_registroRepository.all.isEmpty) {
-      Navigator.pushReplacementNamed(context, "/welcome");
-    } else {
-      _contextService.pushRegistro(_registroRepository.all.first);
-      Navigator.pushReplacementNamed(context, "/main");
-    }
+    Navigator.pushReplacementNamed(context, "/main");
   }
 }
