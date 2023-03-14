@@ -27,5 +27,4 @@ class CredorRepository {
   Future<void> update(int index, Credor credor) {
     return box.putAt(index, credor);
   }
-
 }

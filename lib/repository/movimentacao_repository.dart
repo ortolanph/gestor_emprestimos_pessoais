@@ -1,4 +1,3 @@
-import 'package:gestor_emprestimos_pessoais/entities/credor.dart';
 import 'package:gestor_emprestimos_pessoais/repository/hive_service.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -18,5 +17,4 @@ class MovimentacaoRepository {
   Future<int> add(Movimentacao movimentacao) {
     return box.add(movimentacao);
   }
-
 }

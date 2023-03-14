@@ -7,7 +7,6 @@ import 'package:provider/provider.dart';
 
 import '../main.dart';
 import '../repository/credor_repository.dart';
-import '../service/context_service.dart';
 
 class LoadingPage extends StatefulWidget {
   const LoadingPage({Key? key}) : super(key: key);
@@ -18,7 +17,6 @@ class LoadingPage extends StatefulWidget {
 
 class _LoadingPageState extends State<LoadingPage> {
   final HiveService _hiveService = autoInjector.get<HiveService>();
-  final ContextService _contextService = autoInjector.get<ContextService>();
   final CredorRepository _credorRepository =
       autoInjector.get<CredorRepository>();
 

@@ -42,10 +42,7 @@ extension EmprestimosTypographyExtension on EmprestimosTypography {
           fontSize: 18,
         );
       case EmprestimosTypography.totalLabel:
-        return const TextStyle(
-          fontSize: 24,
-          fontWeight: FontWeight.bold
-        );
+        return const TextStyle(fontSize: 24, fontWeight: FontWeight.bold);
     }
   }
 }

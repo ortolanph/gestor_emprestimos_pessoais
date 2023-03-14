@@ -41,7 +41,8 @@ class Movimentacao with EquatableMixin {
     required this.valor,
   });
 
-  factory Movimentacao.fromJson(Map<String, dynamic> json) => _$MovimentacaoFromJson(json);
+  factory Movimentacao.fromJson(Map<String, dynamic> json) =>
+      _$MovimentacaoFromJson(json);
 
   Map<String, dynamic> toJson() => _$MovimentacaoToJson(this);
 
