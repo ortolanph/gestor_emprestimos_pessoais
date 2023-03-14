@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gestor_emprestimos_pessoais/providers/saldo_devedor_total.dart';
+import 'package:gestor_emprestimos_pessoais/repository/movimentacao_repository.dart';
+import 'package:provider/provider.dart';
 
 import '../main.dart';
 import '../repository/credor_repository.dart';
@@ -15,6 +18,8 @@ class ConfigPage extends StatefulWidget {
 class _ConfigPageState extends State<ConfigPage> {
   final CredorRepository _credorRepository =
       autoInjector.get<CredorRepository>();
+  final MovimentacaoRepository _movimentacaoRepository =
+      autoInjector.get<MovimentacaoRepository>();
   final ContextService _contextService = autoInjector.get<ContextService>();
 
   @override
@@ -64,7 +69,10 @@ class _ConfigPageState extends State<ConfigPage> {
 
                 if (result == "S") {
                   _contextService.popRegistro();
+                  _contextService.popMovimentacao();
                   _credorRepository.deleteAll();
+                  _movimentacaoRepository.deleteAll();
+                  context.read<SaldoDevedorTotal>().zerar();
                 }
               },
               style: ElevatedButton.styleFrom(backgroundColor: Colors.red),

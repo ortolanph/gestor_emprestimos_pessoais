@@ -10,13 +10,13 @@ class Credor with EquatableMixin {
   @HiveField(0)
   String id;
   @HiveField(1)
-  String name;
+  String nome;
   @HiveField(2)
   double valorConsolidado;
 
   Credor({
     required this.id,
-    required this.name,
+    required this.nome,
     required this.valorConsolidado,
   });
 
@@ -25,7 +25,7 @@ class Credor with EquatableMixin {
   Map<String, dynamic> toJson() => _$CredorToJson(this);
 
   @override
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [id, nome, valorConsolidado];
 
   @override
   bool get stringify => true;

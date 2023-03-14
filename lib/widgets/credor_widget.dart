@@ -5,9 +5,11 @@ import '../entities/credor.dart';
 import '../scheme/emprestimos_typography.dart';
 
 class CredorWidget extends StatefulWidget {
-  const CredorWidget(
-      {Key? key, required this.credor, required this.credorIndex})
-      : super(key: key);
+  const CredorWidget({
+    Key? key,
+    required this.credor,
+    required this.credorIndex,
+  }) : super(key: key);
 
   final Credor credor;
   final int credorIndex;
@@ -31,7 +33,7 @@ class _CredorWidgetState extends State<CredorWidget> {
               child: FaIcon(FontAwesomeIcons.moneyBill1),
             ),
             Text(
-              widget.credor.name,
+              widget.credor.nome,
               style: EmprestimosTypography.itemLabel.textStyle,
             ),
             const Spacer(),

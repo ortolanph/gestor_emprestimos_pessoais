@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:gestor_emprestimos_pessoais/providers/saldo_devedor_total.dart';
 import 'package:gestor_emprestimos_pessoais/repository/hive_service.dart';
+import 'package:provider/provider.dart';
 
 import '../main.dart';
+import '../repository/credor_repository.dart';
+import '../service/context_service.dart';
 
 class LoadingPage extends StatefulWidget {
   const LoadingPage({Key? key}) : super(key: key);
@@ -14,6 +18,9 @@ class LoadingPage extends StatefulWidget {
 
 class _LoadingPageState extends State<LoadingPage> {
   final HiveService _hiveService = autoInjector.get<HiveService>();
+  final ContextService _contextService = autoInjector.get<ContextService>();
+  final CredorRepository _credorRepository =
+      autoInjector.get<CredorRepository>();
 
   @override
   void initState() {
@@ -37,6 +44,11 @@ class _LoadingPageState extends State<LoadingPage> {
 
   void load() async {
     await _hiveService.init();
+
+    context
+        .read<SaldoDevedorTotal>()
+        .adicionarValor(_credorRepository.getSaldoDevedorTotal());
+
     Navigator.pushReplacementNamed(context, "/main");
   }
 }
