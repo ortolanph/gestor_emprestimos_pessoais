@@ -24,6 +24,21 @@ class CredorRepository {
         .reduce((value, element) => value + element);
   }
 
+  Map<String, double> getCredorSaldoMap() {
+    if (box.values.isEmpty) return {};
+    Map<String, double> saldos = {};
+
+    List<String> keys = box.values.map((e) => e.id).toList();
+    for (String key in keys) {
+      saldos[key] = box.values
+          .where((element) => element.id == key)
+          .first
+          .valorConsolidado;
+    }
+
+    return saldos;
+  }
+
   Future<void> update(int index, Credor credor) {
     return box.putAt(index, credor);
   }

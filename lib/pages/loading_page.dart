@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:gestor_emprestimos_pessoais/providers/saldo_devedor_credor.dart';
 import 'package:gestor_emprestimos_pessoais/providers/saldo_devedor_total.dart';
 import 'package:gestor_emprestimos_pessoais/repository/hive_service.dart';
 import 'package:provider/provider.dart';
@@ -46,6 +47,10 @@ class _LoadingPageState extends State<LoadingPage> {
     context
         .read<SaldoDevedorTotal>()
         .adicionarValor(_credorRepository.getSaldoDevedorTotal());
+
+    context
+        .read<SaldoDevedorCredor>()
+        .setSaldos(_credorRepository.getCredorSaldoMap());
 
     Navigator.pushReplacementNamed(context, "/main");
   }

@@ -8,7 +8,6 @@ import 'package:gestor_emprestimos_pessoais/providers/saldo_devedor_total.dart';
 import 'package:gestor_emprestimos_pessoais/repository/credor_repository.dart';
 import 'package:gestor_emprestimos_pessoais/repository/movimentacao_repository.dart';
 import 'package:gestor_emprestimos_pessoais/scheme/emprestimos_typography.dart';
-import 'package:gestor_emprestimos_pessoais/service/context_service.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
@@ -26,7 +25,6 @@ class _CredorEditorState extends State<CredorEditor> {
       autoInjector.get<MovimentacaoRepository>();
   final CredorEditorController _credorEditorController =
       autoInjector.get<CredorEditorController>();
-  final ContextService _contextService = autoInjector.get<ContextService>();
 
   TextEditingController credorNomeController = TextEditingController(text: "");
   TextEditingController credorDebitoController =
@@ -49,14 +47,13 @@ class _CredorEditorState extends State<CredorEditor> {
     return Scaffold(
       appBar: AppBar(
         title: Row(
-          children: [
-            const Padding(
+          children: const [
+            Padding(
               padding: EdgeInsets.only(right: 10),
               child: FaIcon(FontAwesomeIcons.moneyBill1),
             ),
             Text(
-              "Novo Credor",
-              style: EmprestimosTypography.mainTitle.textStyle!,
+              "Novo Credor"
             )
           ],
         ),

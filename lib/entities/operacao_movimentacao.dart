@@ -1,0 +1,3 @@
+enum OperacaoMovimentacao {
+  emprestimo, pagamento
+}
