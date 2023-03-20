@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gestor_emprestimos_pessoais/entities/item_menu_credor.dart';
 import 'package:gestor_emprestimos_pessoais/providers/saldo_devedor_credor.dart';
+import 'package:gestor_emprestimos_pessoais/repository/movimentacao_repository.dart';
+import 'package:gestor_emprestimos_pessoais/widgets/movimentacao_widget.dart';
 import 'package:provider/provider.dart';
 
 import '../main.dart';
@@ -17,6 +19,18 @@ class CredorViewer extends StatefulWidget {
 
 class _CredorViewerState extends State<CredorViewer> {
   final ContextService _contextService = autoInjector.get<ContextService>();
+  final MovimentacaoRepository _movimentacaoRepository =
+  autoInjector.get<MovimentacaoRepository>();
+  List _movimentacoes = [];
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      _movimentacoes = _movimentacaoRepository
+          .getMovimentacoesByCredorId(_contextService.credor!.id);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -108,6 +122,13 @@ class _CredorViewerState extends State<CredorViewer> {
                 style: EmprestimosTypography.editLabel.textStyle!,
               ),
             ),
+            Expanded(
+              child: ListView.builder(
+                  itemCount: _movimentacoes.length,
+                  itemBuilder: (context, index) =>
+                      MovimentacaoWidget(
+                          movimentacao: _movimentacoes[index])),
+            )
           ],
         ),
       ),

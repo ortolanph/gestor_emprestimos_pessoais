@@ -17,4 +17,10 @@ class MovimentacaoRepository {
   Future<int> add(Movimentacao movimentacao) {
     return box.add(movimentacao);
   }
+
+  List<Movimentacao> getMovimentacoesByCredorId(String credorId) {
+    return box.values
+        .where((movimentacao) => movimentacao.credorId == credorId)
+        .toList();
+  }
 }

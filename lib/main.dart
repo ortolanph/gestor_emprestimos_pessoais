@@ -12,9 +12,11 @@ import 'package:gestor_emprestimos_pessoais/repository/credor_repository.dart';
 import 'package:gestor_emprestimos_pessoais/repository/hive_service.dart';
 import 'package:gestor_emprestimos_pessoais/repository/movimentacao_repository.dart';
 import 'package:gestor_emprestimos_pessoais/service/context_service.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 final autoInjector = AutoInjector();
+final DateFormat dateFormat = DateFormat("dd/MM/yyyy");
 
 void main() async {
   autoInjector.addSingleton(HiveService.new);

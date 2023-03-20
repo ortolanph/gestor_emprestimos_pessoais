@@ -1,9 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gestor_emprestimos_pessoais/controller/credor_editor_controller.dart';
 import 'package:gestor_emprestimos_pessoais/entities/credor.dart';
 import 'package:gestor_emprestimos_pessoais/entities/movimentacao.dart';
 import 'package:gestor_emprestimos_pessoais/main.dart';
+import 'package:gestor_emprestimos_pessoais/providers/saldo_devedor_credor.dart';
 import 'package:gestor_emprestimos_pessoais/providers/saldo_devedor_total.dart';
 import 'package:gestor_emprestimos_pessoais/repository/credor_repository.dart';
 import 'package:gestor_emprestimos_pessoais/repository/movimentacao_repository.dart';
@@ -64,19 +66,28 @@ class _CredorEditorState extends State<CredorEditor> {
               double debito = double.parse(credorDebitoController.text);
 
               Credor credor = Credor(
-                  id: const Uuid().v4(), nome: nome, valorConsolidado: debito);
+                id: const Uuid().v4(),
+                nome: nome,
+                valorConsolidado: debito,
+              );
 
               _credorRepository.add(credor);
               Movimentacao movimentacao = Movimentacao(
-                  id: const Uuid().v4(),
-                  credorId: credor.id,
-                  operacao: Operacao.emprestimo.name,
-                  dataOperacao: "",
-                  valor: credor.valorConsolidado);
+                id: const Uuid().v4(),
+                credorId: credor.id,
+                operacao: Operacao.emprestimo.name,
+                dataOperacao: dateFormat.format(DateTime.now()),
+                valor: credor.valorConsolidado,
+              );
               _movimentacaoRepository.add(movimentacao);
+
               context
                   .read<SaldoDevedorTotal>()
                   .adicionarValor(credor.valorConsolidado);
+
+              context
+                  .read<SaldoDevedorCredor>()
+                  .adicionaValorParaCredor(credor.id, credor.valorConsolidado);
 
               Navigator.pop(context);
             },

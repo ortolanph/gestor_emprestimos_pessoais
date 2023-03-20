@@ -56,17 +56,18 @@ class _HomePageState extends State<HomePage> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(
-              child: ValueListenableBuilder<Box<Credor>>(
-            valueListenable: _credorRepository.box.listenable(),
-            builder: (BuildContext context, Box<Credor> box, _) =>
-                ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: box.length,
-                    itemBuilder: (context, index) {
-                      var value = _credorRepository.box.getAt(index);
-                      return CredorWidget(credor: value!, credorIndex: index);
-                    }),
-          ))
+            child: ValueListenableBuilder<Box<Credor>>(
+              valueListenable: _credorRepository.box.listenable(),
+              builder: (BuildContext context, Box<Credor> box, _) =>
+                  ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: box.length,
+                      itemBuilder: (context, index) {
+                        var value = _credorRepository.box.getAt(index);
+                        return CredorWidget(credor: value!, credorIndex: index);
+                      }),
+            ),
+          ),
         ],
       ),
       bottomNavigationBar: BottomAppBar(
