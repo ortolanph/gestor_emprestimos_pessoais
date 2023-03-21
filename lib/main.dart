@@ -6,6 +6,7 @@ import 'package:gestor_emprestimos_pessoais/pages/credor_editor.dart';
 import 'package:gestor_emprestimos_pessoais/pages/credor_viewer.dart';
 import 'package:gestor_emprestimos_pessoais/pages/home_page.dart';
 import 'package:gestor_emprestimos_pessoais/pages/loading_page.dart';
+import 'package:gestor_emprestimos_pessoais/pages/movimentacao_editor.dart';
 import 'package:gestor_emprestimos_pessoais/providers/saldo_devedor_credor.dart';
 import 'package:gestor_emprestimos_pessoais/providers/saldo_devedor_total.dart';
 import 'package:gestor_emprestimos_pessoais/repository/credor_repository.dart';
@@ -44,6 +45,7 @@ void main() async {
           "/config": (context) => const ConfigPage(),
           "/editCredor": (context) => const CredorEditor(),
           "/viewCredor": (context) => const CredorViewer(),
+          "/movimentacaoEditor": (context) => const MovimentacaoEditor(),
         },
       ),
     ),
