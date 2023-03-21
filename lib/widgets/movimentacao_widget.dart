@@ -25,7 +25,10 @@ class MovimentacaoWidget extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           children: [
             Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 3),
+                padding: const EdgeInsets.only(
+                  left: 3,
+                  right: 10,
+                ),
                 child: Icon(movimentacaoIcon)),
             Text(
               movimentacao.dataOperacao,

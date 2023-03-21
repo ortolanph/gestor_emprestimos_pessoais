@@ -17,6 +17,15 @@ extension OperacaoExtesion on Operacao {
         return FontAwesomeIcons.rightFromBracket;
     }
   }
+
+  String? get descricao {
+    switch(this) {
+      case Operacao.emprestimo:
+        return "Emprestimo";
+      case Operacao.pagamento:
+        return "Pagamento";
+    }
+  }
 }
 
 @HiveType(typeId: 1)

@@ -98,6 +98,23 @@ class _CredorViewerState extends State<CredorViewer> {
                 ),
               ];
             },
+            onSelected: (selected) {
+              switch(selected) {
+
+                case ItemMenuCredor.editar:
+                  break;
+                case ItemMenuCredor.apagar:
+                  break;
+                case ItemMenuCredor.detalhar:
+                  break;
+                case ItemMenuCredor.nova_movimentacao:
+                  Navigator.pushNamed(
+                    context,
+                    "/movimentacaoEditor",
+                  );
+                  break;
+              }
+            },
           ),
         ],
       ),

@@ -9,7 +9,7 @@ class SaldoDevedorCredor with ChangeNotifier {
     notifyListeners();
   }
 
-  void subtrairValor(String credorId, double valor) {
+  void subtrairValorParaCredor(String credorId, double valor) {
     double valorAnterior = _saldos[credorId] ?? 0;
     _saldos[credorId] = valor - valorAnterior;
     notifyListeners();
