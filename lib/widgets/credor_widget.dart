@@ -31,6 +31,7 @@ class _CredorWidgetState extends State<CredorWidget> {
     return InkWell(
       onTap: () {
         _credorEditorController.editMode = false;
+        _credorEditorController.credorIndex = widget.credorIndex;
         _contextService.pushCredor(widget.credor);
         Navigator.pushNamed(
           context,

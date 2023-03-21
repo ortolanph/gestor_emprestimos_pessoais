@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:gestor_emprestimos_pessoais/controller/credor_editor_controller.dart';
 import 'package:gestor_emprestimos_pessoais/main.dart';
+import 'package:gestor_emprestimos_pessoais/repository/credor_repository.dart';
 import 'package:gestor_emprestimos_pessoais/repository/movimentacao_repository.dart';
 import 'package:gestor_emprestimos_pessoais/service/context_service.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
+import '../entities/credor.dart';
 import '../entities/movimentacao.dart';
 import '../providers/saldo_devedor_credor.dart';
 import '../providers/saldo_devedor_total.dart';
@@ -18,9 +21,13 @@ class MovimentacaoEditor extends StatefulWidget {
 }
 
 class _MovimentacaoEditorState extends State<MovimentacaoEditor> {
-  MovimentacaoRepository _movimentacaoRepository =
+  final MovimentacaoRepository _movimentacaoRepository =
       autoInjector.get<MovimentacaoRepository>();
-  ContextService _contextService = autoInjector.get<ContextService>();
+  final CredorRepository _credorRepository =
+      autoInjector.get<CredorRepository>();
+  final CredorEditorController _credorEditorController =
+      autoInjector.get<CredorEditorController>();
+  final ContextService _contextService = autoInjector.get<ContextService>();
 
   TextEditingController movimentacaoValorController =
       TextEditingController(text: "0");
@@ -46,6 +53,9 @@ class _MovimentacaoEditorState extends State<MovimentacaoEditor> {
                 valor: valorMovimentacao,
               );
               _movimentacaoRepository.add(movimentacao);
+
+              Credor credor = _credorRepository
+                  .getByIndex(_credorEditorController.credorIndex!)!;
 
               if (operacaoSelecionada == Operacao.emprestimo) {
                 context
@@ -78,41 +88,41 @@ class _MovimentacaoEditorState extends State<MovimentacaoEditor> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  ListTile(
-                    title: Tooltip(
-                      message: Operacao.emprestimo.descricao,
-                      child: Icon(Operacao.emprestimo.icone),
-                    ),
-                    leading: Radio<Operacao>(
-                      value: Operacao.emprestimo,
-                      groupValue: operacaoSelecionada,
-                      onChanged: (operacao) {
-                        setState(() {
-                          operacaoSelecionada = operacao!;
-                        });
-                      },
-
-                    ),
-                  ),
-                  ListTile(
-                    title: Tooltip(
-                      message: Operacao.pagamento.descricao,
-                      child: Icon(Operacao.pagamento.icone),
-                    ),
-                    leading: Radio<Operacao>(
-                      value: Operacao.pagamento,
-                      groupValue: operacaoSelecionada,
-                      onChanged: (operacao) {
-                        setState(() {
-                          operacaoSelecionada = operacao!;
-                        });
-                      },
-                    ),
-                  ),
-                ],
+              RadioListTile(
+                title: Row(
+                  children: [
+                    Icon(Operacao.emprestimo.icone!),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10.0),
+                      child: Text(Operacao.emprestimo.descricao!),
+                    )
+                  ],
+                ),
+                value: Operacao.emprestimo,
+                groupValue: operacaoSelecionada,
+                onChanged: (operacao) {
+                  setState(() {
+                    operacaoSelecionada = operacao!;
+                  });
+                },
+              ),
+              RadioListTile(
+                title: Row(
+                  children: [
+                    Icon(Operacao.pagamento.icone!),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10.0),
+                      child: Text(Operacao.pagamento.descricao!),
+                    )
+                  ],
+                ),
+                value: Operacao.pagamento,
+                groupValue: operacaoSelecionada,
+                onChanged: (operacao) {
+                  setState(() {
+                    operacaoSelecionada = operacao!;
+                  });
+                },
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 8.0),

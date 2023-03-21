@@ -39,6 +39,10 @@ class CredorRepository {
     return saldos;
   }
 
+  Credor? getByIndex(int index) {
+    return box.getAt(index);
+  }
+
   Future<void> update(int index, Credor credor) {
     return box.putAt(index, credor);
   }
