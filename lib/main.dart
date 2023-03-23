@@ -1,18 +1,16 @@
 import 'package:auto_injector/auto_injector.dart';
 import 'package:flutter/material.dart';
-import 'package:gestor_emprestimos_pessoais/controller/credor_editor_controller.dart';
 import 'package:gestor_emprestimos_pessoais/pages/config_page.dart';
 import 'package:gestor_emprestimos_pessoais/pages/credor_editor.dart';
 import 'package:gestor_emprestimos_pessoais/pages/credor_viewer.dart';
 import 'package:gestor_emprestimos_pessoais/pages/home_page.dart';
 import 'package:gestor_emprestimos_pessoais/pages/loading_page.dart';
 import 'package:gestor_emprestimos_pessoais/pages/movimentacao_editor.dart';
-import 'package:gestor_emprestimos_pessoais/providers/saldo_devedor_credor.dart';
+import 'package:gestor_emprestimos_pessoais/providers/credor_provider.dart';
 import 'package:gestor_emprestimos_pessoais/providers/saldo_devedor_total.dart';
 import 'package:gestor_emprestimos_pessoais/repository/credor_repository.dart';
 import 'package:gestor_emprestimos_pessoais/repository/hive_service.dart';
 import 'package:gestor_emprestimos_pessoais/repository/movimentacao_repository.dart';
-import 'package:gestor_emprestimos_pessoais/service/context_service.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -24,17 +22,13 @@ void main() async {
   autoInjector.addLazySingleton(CredorRepository.new);
   autoInjector.addLazySingleton(MovimentacaoRepository.new);
 
-  autoInjector.addSingleton(ContextService.new);
-
-  autoInjector.addSingleton(CredorEditorController.new);
-
   autoInjector.commit();
 
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => SaldoDevedorTotal()),
-        ChangeNotifierProvider(create: (_) => SaldoDevedorCredor()),
+        ChangeNotifierProvider(create: (_) => CredorProvider())
       ],
       child: MaterialApp(
         title: "Gestor de Empréstimos Pessoais",

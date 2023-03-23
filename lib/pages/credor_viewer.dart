@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gestor_emprestimos_pessoais/entities/item_menu_credor.dart';
-import 'package:gestor_emprestimos_pessoais/providers/saldo_devedor_credor.dart';
-import 'package:gestor_emprestimos_pessoais/repository/movimentacao_repository.dart';
+import 'package:gestor_emprestimos_pessoais/providers/credor_provider.dart';
 import 'package:gestor_emprestimos_pessoais/widgets/movimentacao_widget.dart';
 import 'package:provider/provider.dart';
 
-import '../main.dart';
 import '../scheme/emprestimos_typography.dart';
-import '../service/context_service.dart';
 
 class CredorViewer extends StatefulWidget {
   const CredorViewer({Key? key}) : super(key: key);
@@ -18,20 +15,6 @@ class CredorViewer extends StatefulWidget {
 }
 
 class _CredorViewerState extends State<CredorViewer> {
-  final ContextService _contextService = autoInjector.get<ContextService>();
-  final MovimentacaoRepository _movimentacaoRepository =
-  autoInjector.get<MovimentacaoRepository>();
-  List _movimentacoes = [];
-
-  @override
-  void initState() {
-    super.initState();
-    setState(() {
-      _movimentacoes = _movimentacaoRepository
-          .getMovimentacoesByCredorId(_contextService.credor!.id);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,7 +25,7 @@ class _CredorViewerState extends State<CredorViewer> {
               padding: EdgeInsets.only(right: 10),
               child: FaIcon(FontAwesomeIcons.moneyBill1),
             ),
-            Text(_contextService.credor!.nome)
+            Text(context.read<CredorProvider>().credor!.nome)
           ],
         ),
         actions: [
@@ -99,8 +82,7 @@ class _CredorViewerState extends State<CredorViewer> {
               ];
             },
             onSelected: (selected) {
-              switch(selected) {
-
+              switch (selected) {
                 case ItemMenuCredor.editar:
                   break;
                 case ItemMenuCredor.apagar:
@@ -129,7 +111,7 @@ class _CredorViewerState extends State<CredorViewer> {
               style: EmprestimosTypography.editLabel.textStyle!,
             ),
             Text(
-              _contextService.credor!.nome,
+              context.read<CredorProvider>().credor!.nome,
               style: EmprestimosTypography.editField.textStyle!,
             ),
             Padding(
@@ -141,10 +123,12 @@ class _CredorViewerState extends State<CredorViewer> {
             ),
             Expanded(
               child: ListView.builder(
-                  itemCount: _movimentacoes.length,
-                  itemBuilder: (context, index) =>
-                      MovimentacaoWidget(
-                          movimentacao: _movimentacoes[index])),
+                  itemCount:
+                      context.watch<CredorProvider>().movimentacoes.length,
+                  itemBuilder: (context, index) => MovimentacaoWidget(
+                      movimentacao: context
+                          .watch<CredorProvider>()
+                          .movimentacoes[index])),
             )
           ],
         ),
@@ -167,8 +151,10 @@ class _CredorViewerState extends State<CredorViewer> {
               const Spacer(),
               Text(
                 context
-                    .watch<SaldoDevedorCredor>()
-                    .saldos[_contextService.credor!.id]
+                    .watch<CredorProvider>()
+                    .movimentacoes
+                    .map((element) => element.valor)
+                    .reduce((value, element) => value + element)
                     .toString(),
                 textAlign: TextAlign.right,
                 style: EmprestimosTypography.totalLabel.textStyle,

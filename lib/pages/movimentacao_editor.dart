@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:gestor_emprestimos_pessoais/controller/credor_editor_controller.dart';
 import 'package:gestor_emprestimos_pessoais/main.dart';
-import 'package:gestor_emprestimos_pessoais/repository/credor_repository.dart';
+import 'package:gestor_emprestimos_pessoais/providers/saldo_devedor_total.dart';
 import 'package:gestor_emprestimos_pessoais/repository/movimentacao_repository.dart';
-import 'package:gestor_emprestimos_pessoais/service/context_service.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
-import '../entities/credor.dart';
 import '../entities/movimentacao.dart';
-import '../providers/saldo_devedor_credor.dart';
-import '../providers/saldo_devedor_total.dart';
+import '../providers/credor_provider.dart';
 import '../scheme/emprestimos_typography.dart';
 
 class MovimentacaoEditor extends StatefulWidget {
@@ -23,11 +19,6 @@ class MovimentacaoEditor extends StatefulWidget {
 class _MovimentacaoEditorState extends State<MovimentacaoEditor> {
   final MovimentacaoRepository _movimentacaoRepository =
       autoInjector.get<MovimentacaoRepository>();
-  final CredorRepository _credorRepository =
-      autoInjector.get<CredorRepository>();
-  final CredorEditorController _credorEditorController =
-      autoInjector.get<CredorEditorController>();
-  final ContextService _contextService = autoInjector.get<ContextService>();
 
   TextEditingController movimentacaoValorController =
       TextEditingController(text: "0");
@@ -47,28 +38,23 @@ class _MovimentacaoEditorState extends State<MovimentacaoEditor> {
 
               Movimentacao movimentacao = Movimentacao(
                 id: const Uuid().v4(),
-                credorId: _contextService.credor!.id,
+                credorId: context.read<CredorProvider>().credor!.id,
                 operacao: operacao,
                 dataOperacao: dateFormat.format(DateTime.now()),
                 valor: valorMovimentacao,
               );
               _movimentacaoRepository.add(movimentacao);
 
-              Credor credor = _credorRepository
-                  .getByIndex(_credorEditorController.credorIndex!)!;
+              context.read<CredorProvider>().adicionaMovimentacao(movimentacao);
 
               if (operacaoSelecionada == Operacao.emprestimo) {
                 context
                     .read<SaldoDevedorTotal>()
                     .adicionarValor(valorMovimentacao);
-                context.read<SaldoDevedorCredor>().adicionaValorParaCredor(
-                    _contextService.credor!.id, valorMovimentacao);
               } else {
                 context
                     .read<SaldoDevedorTotal>()
                     .subtrairValor(valorMovimentacao);
-                context.read<SaldoDevedorCredor>().subtrairValorParaCredor(
-                    _contextService.credor!.id, valorMovimentacao);
               }
 
               Navigator.pop(context);

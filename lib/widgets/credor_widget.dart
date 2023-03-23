@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:gestor_emprestimos_pessoais/service/context_service.dart';
+import 'package:gestor_emprestimos_pessoais/providers/credor_provider.dart';
+import 'package:gestor_emprestimos_pessoais/repository/movimentacao_repository.dart';
+import 'package:provider/provider.dart';
 
-import '../controller/credor_editor_controller.dart';
 import '../entities/credor.dart';
 import '../main.dart';
 import '../scheme/emprestimos_typography.dart';
@@ -22,17 +23,19 @@ class CredorWidget extends StatefulWidget {
 }
 
 class _CredorWidgetState extends State<CredorWidget> {
-  final CredorEditorController _credorEditorController =
-      autoInjector.get<CredorEditorController>();
-  final ContextService _contextService = autoInjector.get<ContextService>();
+  final MovimentacaoRepository _movimentacaoRepository =
+      autoInjector<MovimentacaoRepository>();
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        _credorEditorController.editMode = false;
-        _credorEditorController.credorIndex = widget.credorIndex;
-        _contextService.pushCredor(widget.credor);
+        context.read<CredorProvider>().novoCredor(
+            widget.credorIndex,
+            widget.credor,
+            _movimentacaoRepository
+                .getMovimentacoesByCredorId(widget.credor.id));
+
         Navigator.pushNamed(
           context,
           "/viewCredor",

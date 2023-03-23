@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 import '../main.dart';
 import '../repository/credor_repository.dart';
 import '../scheme/emprestimos_typography.dart';
-import '../service/context_service.dart';
 
 class ConfigPage extends StatefulWidget {
   const ConfigPage({Key? key}) : super(key: key);
@@ -20,7 +19,6 @@ class _ConfigPageState extends State<ConfigPage> {
       autoInjector.get<CredorRepository>();
   final MovimentacaoRepository _movimentacaoRepository =
       autoInjector.get<MovimentacaoRepository>();
-  final ContextService _contextService = autoInjector.get<ContextService>();
 
   @override
   Widget build(BuildContext context) {
@@ -68,8 +66,6 @@ class _ConfigPageState extends State<ConfigPage> {
                 );
 
                 if (result == "S") {
-                  _contextService.popRegistro();
-                  _contextService.popMovimentacao();
                   _credorRepository.deleteAll();
                   _movimentacaoRepository.deleteAll();
                   context.read<SaldoDevedorTotal>().zerar();
