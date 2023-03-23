@@ -36,6 +36,17 @@ class _MovimentacaoEditorState extends State<MovimentacaoEditor> {
               double valorMovimentacao =
                   double.parse(movimentacaoValorController.text);
 
+              if (operacaoSelecionada == Operacao.emprestimo) {
+                context
+                    .read<SaldoDevedorTotal>()
+                    .adicionarValor(valorMovimentacao);
+              } else {
+                context
+                    .read<SaldoDevedorTotal>()
+                    .subtrairValor(valorMovimentacao);
+                valorMovimentacao = valorMovimentacao * -1;
+              }
+
               Movimentacao movimentacao = Movimentacao(
                 id: const Uuid().v4(),
                 credorId: context.read<CredorProvider>().credor!.id,
@@ -46,16 +57,6 @@ class _MovimentacaoEditorState extends State<MovimentacaoEditor> {
               _movimentacaoRepository.add(movimentacao);
 
               context.read<CredorProvider>().adicionaMovimentacao(movimentacao);
-
-              if (operacaoSelecionada == Operacao.emprestimo) {
-                context
-                    .read<SaldoDevedorTotal>()
-                    .adicionarValor(valorMovimentacao);
-              } else {
-                context
-                    .read<SaldoDevedorTotal>()
-                    .subtrairValor(valorMovimentacao);
-              }
 
               Navigator.pop(context);
             },
