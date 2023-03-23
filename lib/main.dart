@@ -13,6 +13,7 @@ import 'package:gestor_emprestimos_pessoais/repository/credor_repository.dart';
 import 'package:gestor_emprestimos_pessoais/repository/hive_service.dart';
 import 'package:gestor_emprestimos_pessoais/repository/movimentacao_repository.dart';
 import 'package:gestor_emprestimos_pessoais/service/context_service.dart';
+import 'package:gestor_emprestimos_pessoais/service/logger_service.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -25,6 +26,7 @@ void main() async {
   autoInjector.addLazySingleton(MovimentacaoRepository.new);
 
   autoInjector.addSingleton(ContextService.new);
+  autoInjector.addSingleton(LoggerService.new);
 
   autoInjector.addSingleton(CredorEditorController.new);
 

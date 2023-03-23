@@ -11,6 +11,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../service/context_service.dart';
+import '../service/logger_service.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -24,11 +25,12 @@ class _HomePageState extends State<HomePage> {
       autoInjector.get<CredorRepository>();
   final CredorEditorController _credorEditorController =
       autoInjector.get<CredorEditorController>();
-  final ContextService _contextService = autoInjector.get<ContextService>();
+  final LoggerService _loggerService = autoInjector.get<LoggerService>();
   double saldoDevedorTotal = 0;
 
   @override
   Widget build(BuildContext context) {
+    _loggerService.logger.info("Home Page");
     return Scaffold(
       appBar: AppBar(
         title: const Text("Empréstimos Pessoais"),

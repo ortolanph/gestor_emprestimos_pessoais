@@ -4,6 +4,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:gestor_emprestimos_pessoais/providers/saldo_devedor_credor.dart';
 import 'package:gestor_emprestimos_pessoais/providers/saldo_devedor_total.dart';
 import 'package:gestor_emprestimos_pessoais/repository/hive_service.dart';
+import 'package:gestor_emprestimos_pessoais/service/logger_service.dart';
 import 'package:provider/provider.dart';
 
 import '../main.dart';
@@ -18,6 +19,7 @@ class LoadingPage extends StatefulWidget {
 
 class _LoadingPageState extends State<LoadingPage> {
   final HiveService _hiveService = autoInjector.get<HiveService>();
+  final LoggerService _loggerService = autoInjector.get<LoggerService>();
   final CredorRepository _credorRepository =
       autoInjector.get<CredorRepository>();
 
@@ -43,6 +45,7 @@ class _LoadingPageState extends State<LoadingPage> {
 
   void load() async {
     await _hiveService.init();
+    _loggerService.init();
 
     context
         .read<SaldoDevedorTotal>()
