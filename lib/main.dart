@@ -12,12 +12,20 @@ import 'package:gestor_emprestimos_pessoais/repository/credor_repository.dart';
 import 'package:gestor_emprestimos_pessoais/repository/hive_service.dart';
 import 'package:gestor_emprestimos_pessoais/repository/movimentacao_repository.dart';
 import 'package:intl/intl.dart';
+import 'package:logging/logging.dart';
+import 'package:logging_appenders/logging_appenders.dart';
 import 'package:provider/provider.dart';
 
 final autoInjector = AutoInjector();
 final DateFormat dateFormat = DateFormat("dd/MM/yyyy");
 
 void main() async {
+  Logger.root.level = Level.ALL;
+  final consoleAppender = PrintAppender.setupLogging(stderrLevel: Level.ALL);
+  final fileAppender = RotatingFileAppender(baseFilePath: 'gep_log.log');
+  Logger.root.onRecord.listen(consoleAppender.call);
+  Logger.root.onRecord.listen(fileAppender.call);
+
   autoInjector.addSingleton(HiveService.new);
   autoInjector.addLazySingleton(CredorRepository.new);
   autoInjector.addLazySingleton(MovimentacaoRepository.new);
