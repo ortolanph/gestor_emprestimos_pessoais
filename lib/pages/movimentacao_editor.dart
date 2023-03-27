@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:gestor_emprestimos_pessoais/main.dart';
 import 'package:gestor_emprestimos_pessoais/providers/saldo_devedor_total.dart';
+import 'package:gestor_emprestimos_pessoais/repository/credor_repository.dart';
 import 'package:gestor_emprestimos_pessoais/repository/movimentacao_repository.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
+import '../entities/credor.dart';
 import '../entities/movimentacao.dart';
 import '../providers/credor_provider.dart';
 import '../scheme/emprestimos_typography.dart';
@@ -19,6 +21,8 @@ class MovimentacaoEditor extends StatefulWidget {
 class _MovimentacaoEditorState extends State<MovimentacaoEditor> {
   final MovimentacaoRepository _movimentacaoRepository =
       autoInjector.get<MovimentacaoRepository>();
+  final CredorRepository _credorRepository =
+      autoInjector.get<CredorRepository>();
 
   TextEditingController movimentacaoValorController =
       TextEditingController(text: "0");
@@ -36,15 +40,25 @@ class _MovimentacaoEditorState extends State<MovimentacaoEditor> {
               double valorMovimentacao =
                   double.parse(movimentacaoValorController.text);
 
+              int indexCredor = context.read<CredorProvider>().index!;
+              Credor credor = _credorRepository
+                  .getByIndex(indexCredor)!;
+
               if (operacaoSelecionada == Operacao.emprestimo) {
                 context
                     .read<SaldoDevedorTotal>()
                     .adicionarValor(valorMovimentacao);
+
+                credor.valorConsolidado += valorMovimentacao;
+                _credorRepository.update(indexCredor, credor);
               } else {
                 context
                     .read<SaldoDevedorTotal>()
                     .subtrairValor(valorMovimentacao);
                 valorMovimentacao = valorMovimentacao * -1;
+
+                credor.valorConsolidado += valorMovimentacao;
+                _credorRepository.update(indexCredor, credor);
               }
 
               Movimentacao movimentacao = Movimentacao(
