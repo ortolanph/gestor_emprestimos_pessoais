@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gestor_emprestimos_pessoais/providers/credor_provider.dart';
+import 'package:gestor_emprestimos_pessoais/repository/detalhe_credor_repository.dart';
 import 'package:gestor_emprestimos_pessoais/repository/movimentacao_repository.dart';
 import 'package:provider/provider.dart';
 
@@ -26,15 +27,20 @@ class _CredorWidgetState extends State<CredorWidget> {
   final MovimentacaoRepository _movimentacaoRepository =
       autoInjector<MovimentacaoRepository>();
 
+  final DetalheCredorRepositoy _detalheCredorRepositoy =
+      autoInjector<DetalheCredorRepositoy>();
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
         context.read<CredorProvider>().novoCredor(
-            widget.credorIndex,
-            widget.credor,
-            _movimentacaoRepository
-                .getMovimentacoesByCredorId(widget.credor.id));
+              widget.credorIndex,
+              widget.credor,
+              _movimentacaoRepository
+                  .getMovimentacoesByCredorId(widget.credor.id),
+              _detalheCredorRepositoy.getDetalhesByCredorId(widget.credor.id),
+            );
 
         Navigator.pushNamed(
           context,

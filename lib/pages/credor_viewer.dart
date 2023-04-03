@@ -28,6 +28,13 @@ class _CredorViewerState extends State<CredorViewer> {
             Text(context.read<CredorProvider>().credor!.nome)
           ],
         ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            context.read<CredorProvider>().limparDadosCredor();
+            Navigator.pop(context);
+          },
+        ),
         actions: [
           PopupMenuButton(
             itemBuilder: (context) {
@@ -92,7 +99,7 @@ class _CredorViewerState extends State<CredorViewer> {
                 case ItemMenuCredor.nova_movimentacao:
                   Navigator.pushNamed(
                     context,
-                    "/movimentacaoEditor",
+                    "/editMovimentacao",
                   );
                   break;
               }

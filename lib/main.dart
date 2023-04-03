@@ -9,6 +9,7 @@ import 'package:gestor_emprestimos_pessoais/pages/movimentacao_editor.dart';
 import 'package:gestor_emprestimos_pessoais/providers/credor_provider.dart';
 import 'package:gestor_emprestimos_pessoais/providers/saldo_devedor_total.dart';
 import 'package:gestor_emprestimos_pessoais/repository/credor_repository.dart';
+import 'package:gestor_emprestimos_pessoais/repository/detalhe_credor_repository.dart';
 import 'package:gestor_emprestimos_pessoais/repository/hive_service.dart';
 import 'package:gestor_emprestimos_pessoais/repository/movimentacao_repository.dart';
 import 'package:intl/intl.dart';
@@ -29,6 +30,7 @@ void main() async {
   autoInjector.addSingleton(HiveService.new);
   autoInjector.addLazySingleton(CredorRepository.new);
   autoInjector.addLazySingleton(MovimentacaoRepository.new);
+  autoInjector.addLazySingleton(DetalheCredorRepositoy.new);
 
   autoInjector.commit();
 
@@ -47,7 +49,7 @@ void main() async {
           "/config": (context) => const ConfigPage(),
           "/editCredor": (context) => const CredorEditor(),
           "/viewCredor": (context) => const CredorViewer(),
-          "/movimentacaoEditor": (context) => const MovimentacaoEditor(),
+          "/editMovimentacao": (context) => const MovimentacaoEditor(),
         },
       ),
     ),
