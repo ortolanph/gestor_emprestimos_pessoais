@@ -27,21 +27,23 @@ class _HomePageState extends State<HomePage> {
         title: const Text("Empréstimos Pessoais"),
         actions: [
           IconButton(
-              onPressed: () {
-                Navigator.pushNamed(
-                  context,
-                  '/config',
-                );
-              },
-              icon: const FaIcon(FontAwesomeIcons.gear)),
+            onPressed: () {
+              Navigator.pushNamed(
+                context,
+                '/config',
+              );
+            },
+            icon: const FaIcon(FontAwesomeIcons.gear),
+          ),
           IconButton(
-              onPressed: () {
-                Navigator.pushNamed(
-                  context,
-                  "/editCredor",
-                );
-              },
-              icon: const Icon(Icons.add)),
+            onPressed: () {
+              Navigator.pushNamed(
+                context,
+                "/editCredor",
+              );
+            },
+            icon: const Icon(Icons.add),
+          ),
         ],
       ),
       body: Column(

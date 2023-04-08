@@ -15,4 +15,15 @@ class DetalheCredorRepositoy {
         .where((detalhe) => detalhe.credorId == credorId)
         .toList();
   }
+
+  int getDetalheCredorIndex(DetalheCredor detalheCredor) {
+    if(box.isEmpty) return -1;
+    if(box.values.contains(detalheCredor)) {
+      return box.values
+          .toList()
+          .indexOf(detalheCredor);
+    } else {
+      return -1;
+    }
+  }
 }

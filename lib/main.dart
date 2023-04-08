@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gestor_emprestimos_pessoais/pages/config_page.dart';
 import 'package:gestor_emprestimos_pessoais/pages/credor_editor.dart';
 import 'package:gestor_emprestimos_pessoais/pages/credor_viewer.dart';
+import 'package:gestor_emprestimos_pessoais/pages/detalhe_credor_viewer.dart';
 import 'package:gestor_emprestimos_pessoais/pages/home_page.dart';
 import 'package:gestor_emprestimos_pessoais/pages/loading_page.dart';
 import 'package:gestor_emprestimos_pessoais/pages/movimentacao_editor.dart';
@@ -13,20 +14,12 @@ import 'package:gestor_emprestimos_pessoais/repository/detalhe_credor_repository
 import 'package:gestor_emprestimos_pessoais/repository/hive_service.dart';
 import 'package:gestor_emprestimos_pessoais/repository/movimentacao_repository.dart';
 import 'package:intl/intl.dart';
-import 'package:logging/logging.dart';
-import 'package:logging_appenders/logging_appenders.dart';
 import 'package:provider/provider.dart';
 
 final autoInjector = AutoInjector();
 final DateFormat dateFormat = DateFormat("dd/MM/yyyy");
 
 void main() async {
-  Logger.root.level = Level.ALL;
-  final consoleAppender = PrintAppender.setupLogging(stderrLevel: Level.ALL);
-  final fileAppender = RotatingFileAppender(baseFilePath: 'gep_log.log');
-  Logger.root.onRecord.listen(consoleAppender.call);
-  Logger.root.onRecord.listen(fileAppender.call);
-
   autoInjector.addSingleton(HiveService.new);
   autoInjector.addLazySingleton(CredorRepository.new);
   autoInjector.addLazySingleton(MovimentacaoRepository.new);
@@ -50,6 +43,7 @@ void main() async {
           "/editCredor": (context) => const CredorEditor(),
           "/viewCredor": (context) => const CredorViewer(),
           "/editMovimentacao": (context) => const MovimentacaoEditor(),
+          "/viewDetalhes": (context) => const DetalheCredorViewer(),
         },
       ),
     ),

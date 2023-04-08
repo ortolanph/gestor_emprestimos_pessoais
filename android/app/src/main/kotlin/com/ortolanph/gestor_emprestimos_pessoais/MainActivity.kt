@@ -1,4 +1,4 @@
-package com.example.gestor_emprestimos_pessoais
+package com.ortolanph.gestor_emprestimos_pessoais
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -95,6 +95,10 @@ class _CredorViewerState extends State<CredorViewer> {
                 case ItemMenuCredor.apagar:
                   break;
                 case ItemMenuCredor.detalhar:
+                  Navigator.pushNamed(
+                    context,
+                    "/viewDetalhes",
+                  );
                   break;
                 case ItemMenuCredor.nova_movimentacao:
                   Navigator.pushNamed(

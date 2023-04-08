@@ -8,13 +8,13 @@ part 'detalhe_credor.g.dart';
 @JsonSerializable()
 class DetalheCredor with EquatableMixin {
   @HiveField(0)
-  final String id;
+  String id;
   @HiveField(1)
-  final String credorId;
+  String credorId;
   @HiveField(2)
-  final String detalhe;
+  String detalhe;
   @HiveField(3)
-  final String valor;
+  String valor;
 
   DetalheCredor({required this.id, required this.credorId, required this.detalhe, required this.valor});
 

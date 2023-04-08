@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:gestor_emprestimos_pessoais/entities/detalhe_credor.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:path_provider/path_provider.dart';
 
 import '../entities/credor.dart';
 import '../entities/movimentacao.dart';
@@ -14,9 +17,21 @@ class HiveService {
     Hive.registerAdapter(CredorAdapter());
     Hive.registerAdapter(MovimentacaoAdapter());
     Hive.registerAdapter(DetalheCredorAdapter());
-    _credorBox = await Hive.openBox<Credor>("credores");
-    _movimentacaoBox = await Hive.openBox<Movimentacao>("movimentacoes");
-    _detalheCredorBox = await Hive.openBox<DetalheCredor>("detalhe_credor");
+
+    Directory supportDir = await getApplicationSupportDirectory();
+
+    _credorBox = await Hive.openBox<Credor>(
+      "credores",
+      path: supportDir.path,
+    );
+    _movimentacaoBox = await Hive.openBox<Movimentacao>(
+      "movimentacoes",
+      path: supportDir.path,
+    );
+    _detalheCredorBox = await Hive.openBox<DetalheCredor>(
+      "detalhe_credor",
+      path: supportDir.path,
+    );
   }
 
   // Boxes
