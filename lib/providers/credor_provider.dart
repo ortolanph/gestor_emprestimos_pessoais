@@ -37,6 +37,12 @@ class CredorProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void atualizaDetalhe(DetalheCredor detalheCredor) {
+    _detalhes[_detalhes.lastIndexWhere(
+        (element) => element.id == detalheCredor.id)] = detalheCredor;
+    notifyListeners();
+  }
+
   void removeDetalhe(DetalheCredor detalheCredor) {
     _detalhes.remove(detalheCredor);
     notifyListeners();

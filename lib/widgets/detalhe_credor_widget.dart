@@ -4,14 +4,15 @@ import '../entities/detalhe_credor.dart';
 import '../scheme/emprestimos_typography.dart';
 
 class DetalheCredorWidget extends StatefulWidget {
-  const DetalheCredorWidget({
+  DetalheCredorWidget({
     Key? key,
     required this.detalheCredor,
-    required this.index,
-  }) : super(key: key);
+    int index = -1,
+  })  : detalheIndex = index,
+        super(key: key);
 
   final DetalheCredor detalheCredor;
-  final int index;
+  int detalheIndex;
 
   @override
   State<DetalheCredorWidget> createState() => _DetalheCredorWidgetState();
@@ -31,7 +32,7 @@ class _DetalheCredorWidgetState extends State<DetalheCredorWidget> {
     detalheCredorDetalheController.text = widget.detalheCredor.detalhe;
     detalheCredorValorController.text = widget.detalheCredor.valor;
 
-    if (widget.index >= 0) {
+    if (widget.detalheIndex! >= 0) {
       setState(() {
         editMode = false;
       });
@@ -45,7 +46,11 @@ class _DetalheCredorWidgetState extends State<DetalheCredorWidget> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onDoubleTap: () {},
+      onDoubleTap: () {
+        setState(() {
+          editMode = true;
+        });
+      },
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Form(
@@ -69,9 +74,11 @@ class _DetalheCredorWidgetState extends State<DetalheCredorWidget> {
                     widget.detalheCredor.valor =
                         detalheCredorValorController.text;
 
-                    setState(() {
-                      editMode = false;
-                    });
+                    setState(
+                      () {
+                        editMode = false;
+                      },
+                    );
                   },
                 ),
         ),
