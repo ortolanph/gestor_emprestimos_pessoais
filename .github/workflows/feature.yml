@@ -2,8 +2,8 @@ name: Gestor Basic Steps
 
 on:
   push:
-    branch:
-      - feature*
+    branches:
+      - 'feature**
 
 jobs:
   test:
