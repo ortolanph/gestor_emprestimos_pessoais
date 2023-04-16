@@ -13,8 +13,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   auto_injector: ^1.0.2
   build_runner: ^2.3.3
-  easy_localization: ^3.0.1
-  easy_localization_loader: ^1.0.1+1
+  # easy_localization: ^3.0.1
+  # easy_localization_loader: ^1.0.1+1
   equatable: ^2.0.5
   flutter_dotenv: ^5.0.2
   flutter_spinkit: ^5.1.0
