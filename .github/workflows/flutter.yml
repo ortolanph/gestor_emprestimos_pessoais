@@ -17,15 +17,15 @@ jobs:
      - uses: subosito/flutter-action@v2
        with:
          channel: 'beta'
+     - run: flutter pub get
+     - run: flutter pub run build_runner build -d
+     - run: flutter build windows
      - uses: actions/upload-artifact@v3
        with:
         name: build\windows\runner\Release\gestor_emprestimos_pessoais.exe
         path: releases/windows/gestor_emprestimos_pessoais.exe
         retention-days: 5
         if-no-files-found: warn
-     - run: flutter pub get
-     - run: flutter pub run build_runner build -d
-     - run: flutter build windows
   build_android:
     runs-on: ubuntu-latest
     steps:
@@ -37,16 +37,22 @@ jobs:
     - uses: subosito/flutter-action@v2
       with:
         flutter-version: '3.7.7'
+    - run: flutter pub get
+    - run: flutter pub run build_runner build -d
+    - run: flutter build apk
+    - run: flutter build appbundle
     - uses: actions/upload-artifact@v3
       with:
         name: build/app/outputs/flutter-apk/app-release.apk
         path: releases/android/gestor_emprestimos_pessoais.apk
         retention-days: 5
         if-no-files-found: warn
-    - run: flutter pub get
-    - run: flutter pub run build_runner build -d
-    - run: flutter build apk
-    - run: flutter build appbundle
+    - uses: actions/upload-artifact@v3
+      with:
+        name: build/app/outputs/bundle/release/app-release.aab
+        path: releases/android/gestor_emprestimos_pessoais.aab
+        retention-days: 5
+        if-no-files-found: warn
   build_ios:
     runs-on: macos-latest
     steps:
@@ -55,12 +61,12 @@ jobs:
       with:
         channel: 'stable'
         architecture: x64
+    - run: flutter pub get
+    - run: flutter pub run build_runner build -d
+    - run: flutter build ios --release --no-codesign
     - uses: actions/upload-artifact@v3
       with:
         name: /Users/runner/work/gestor_emprestimos_pessoais/gestor_emprestimos_pessoais/build/ios/iphoneos/Runner.app
         path: releases/android/gestor_emprestimos_pessoais.app
         retention-days: 5
         if-no-files-found: warn
-    - run: flutter pub get
-    - run: flutter pub run build_runner build -d
-    - run: flutter build ios --release --no-codesign
