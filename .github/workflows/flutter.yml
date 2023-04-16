@@ -1,0 +1,12 @@
+name: Gestor Basic Steps
+
+on: [push]
+
+jobs:
+  version:
+    - uses: actions/checkout@v3
+    - uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.7.7'
+        channel: 'stable'
+    - run: flutter --version
