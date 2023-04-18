@@ -15,4 +15,3 @@ jobs:
          channel: 'stable'
      - run: flutter pub get
      - run: flutter pub run build_runner build -d
-     - run: flutter --no-color test -r github

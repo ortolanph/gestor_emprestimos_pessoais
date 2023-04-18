@@ -13,12 +13,12 @@ class HiveService {
   Box<DetalheCredor>? _detalheCredorBox;
 
   Future<void> init() async {
-    await Hive.initFlutter();
+    Directory supportDir = await getApplicationSupportDirectory();
+
+    await Hive.initFlutter(supportDir.path);
     Hive.registerAdapter(CredorAdapter());
     Hive.registerAdapter(MovimentacaoAdapter());
     Hive.registerAdapter(DetalheCredorAdapter());
-
-    Directory supportDir = await getApplicationSupportDirectory();
 
     _credorBox = await Hive.openBox<Credor>(
       "credores",
